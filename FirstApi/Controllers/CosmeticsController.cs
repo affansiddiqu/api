@@ -83,6 +83,20 @@ namespace firstapi.Controllers
 				return BadRequest();
 			}
 		}
-	}
+		[HttpGet ("{PageNo}/{PageSize}")]
+
+		public IActionResult GetCosmetics(int pageno , int pagesize)
+		{
+			int pagenum = pageno;
+			int pagesiz = pagesize;
+
+			if(pagenum == 1) { pageno = 1; }
+			if(pagesiz == 1) { pagesize = 1; }
+
+			var medicie = db.Makeup.Skip((pageno - 1)* pagesize).Take(pagesize).ToList();
+			return Ok(medicie);
+
+     }
+    }
 
 }
